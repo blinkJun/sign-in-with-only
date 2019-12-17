@@ -26,7 +26,7 @@ if(validateSign()&&redirectUrl){
 
     // 将token传入将要跳转的url中
     const redirectUrlQuery:any = willRedirect.query
-    const redirectOldParams = getUrlQuery(redirectUrlQuery.substring(1)) 
+    const redirectOldParams = redirectUrlQuery?getUrlQuery(redirectUrlQuery.substring(1)):{}
     const newParams = Object.assign({},redirectOldParams,oldParams)
     willRedirect.set('query',newParams);
     

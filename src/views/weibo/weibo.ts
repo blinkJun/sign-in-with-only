@@ -11,21 +11,21 @@ if(validateSign()&&redirectUrl){
     let oldParams:any = {};
     const clearParamList = ['appId','time','sign','kuman_redirect'];
     for(let key in params){
-        if(!clearParamList.includes(key)){
+        if(key&&!clearParamList.includes(key)){
             oldParams[key] = params[key]
         }
     }
-
+    
     // 解析跳转url
     const willRedirect = new Url(redirectUrl);
-
+    
     // 解析的参数传入将要跳转的url中
     const redirectUrlQuery:any = willRedirect.query
-    const redirectOldParams = getUrlQuery(redirectUrlQuery.substring(1)) 
+    const redirectOldParams = redirectUrlQuery?getUrlQuery(redirectUrlQuery.substring(1)):{}
     const newParams = Object.assign({},redirectOldParams,oldParams)
     willRedirect.set('query',newParams);
     
     // 跳转
-    const willRedirectUrl = willRedirect.toString()
+    const willRedirectUrl = willRedirect.toString();
     location.replace(willRedirectUrl)
 }
